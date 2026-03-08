@@ -418,6 +418,30 @@ const BRAND_TICKERS = {
   xai: null,
 };
 
+function fetchYahoo(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "application/json",
+      },
+    }, (response) => {
+      // Follow redirects
+      if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
+        return fetchYahoo(response.headers.location).then(resolve, reject);
+      }
+      let body = "";
+      response.on("data", (chunk) => { body += chunk; });
+      response.on("end", () => {
+        if (response.statusCode !== 200) {
+          return reject(new Error(`Yahoo returned ${response.statusCode}: ${body.slice(0, 200)}`));
+        }
+        try { resolve(JSON.parse(body)); } catch (e) { reject(new Error(`JSON parse failed: ${body.slice(0, 200)}`)); }
+      });
+    }).on("error", reject);
+  });
+}
+
 app.get("/api/stock", async (req, res) => {
   const brand = (req.query.brand || "").toLowerCase();
   const ticker = BRAND_TICKERS[brand];
@@ -431,37 +455,37 @@ app.get("/api/stock", async (req, res) => {
   const start = req.query.from
     ? Math.floor(new Date(req.query.from).getTime() / 1000)
     : end - 90 * 24 * 60 * 60;
-  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?period1=${start}&period2=${end}&interval=1d`;
 
-  try {
-    const raw = await new Promise((resolve, reject) => {
-      https.get(url, { headers: { "User-Agent": "Mozilla/5.0" } }, (response) => {
-        let body = "";
-        response.on("data", (chunk) => { body += chunk; });
-        response.on("end", () => {
-          try { resolve(JSON.parse(body)); } catch (e) { reject(e); }
-        });
-      }).on("error", reject);
-    });
+  const hosts = ["query2.finance.yahoo.com", "query1.finance.yahoo.com"];
+  let lastErr;
 
-    const result = raw.chart?.result?.[0];
-    if (!result) return res.json({ ticker, private: false, data: [] });
+  for (const host of hosts) {
+    const url = `https://${host}/v8/finance/chart/${ticker}?period1=${start}&period2=${end}&interval=1d`;
+    try {
+      const raw = await fetchYahoo(url);
 
-    const timestamps = result.timestamp || [];
-    const closes = result.indicators?.quote?.[0]?.close || [];
+      const result = raw.chart?.result?.[0];
+      if (!result) return res.json({ ticker, private: false, data: [] });
 
-    const data = timestamps
-      .map((ts, i) => ({
-        date: new Date(ts * 1000).toISOString().split("T")[0],
-        price: closes[i] != null ? +closes[i].toFixed(2) : null,
-      }))
-      .filter((p) => p.price != null);
+      const timestamps = result.timestamp || [];
+      const closes = result.indicators?.quote?.[0]?.close || [];
 
-    res.json({ ticker, private: false, data });
-  } catch (err) {
-    log("STOCK", "Failed to fetch stock data", { ticker, error: err.message });
-    res.status(502).json({ error: "Failed to fetch stock data" });
+      const data = timestamps
+        .map((ts, i) => ({
+          date: new Date(ts * 1000).toISOString().split("T")[0],
+          price: closes[i] != null ? +closes[i].toFixed(2) : null,
+        }))
+        .filter((p) => p.price != null);
+
+      return res.json({ ticker, private: false, data });
+    } catch (err) {
+      log("STOCK", `Failed with ${host}`, { ticker, error: err.message });
+      lastErr = err;
+    }
   }
+
+  log("STOCK", "All Yahoo hosts failed", { ticker, error: lastErr?.message });
+  res.status(502).json({ error: "Failed to fetch stock data" });
 });
 
 // ── Catchall: SPA fallback in prod, redirect in dev ─────────
