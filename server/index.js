@@ -446,21 +446,30 @@ function httpsGet(url, extraHeaders = {}) {
 async function getYahooCrumb() {
   if (yfCrumb && Date.now() < yfCrumbExpiry) return { crumb: yfCrumb, cookie: yfCookie };
 
+  log("STOCK", "Fetching Yahoo crumb...");
+
   // Step 1: hit Yahoo Finance to get consent cookies
   const page = await httpsGet("https://fc.yahoo.com/");
   const cookies = page.headers["set-cookie"];
   const cookieStr = cookies ? cookies.map((c) => c.split(";")[0]).join("; ") : "";
+  log("STOCK", "fc.yahoo.com response", { status: page.status, hasCookies: !!cookies, cookieCount: cookies?.length || 0 });
+
+  if (!cookieStr) {
+    throw new Error("No cookies received from fc.yahoo.com");
+  }
 
   // Step 2: get crumb using the cookies
   const crumbRes = await httpsGet("https://query2.finance.yahoo.com/v1/test/getcrumb", { Cookie: cookieStr });
+  log("STOCK", "Crumb response", { status: crumbRes.status, body: crumbRes.body?.slice(0, 50) });
+
   if (crumbRes.status !== 200 || !crumbRes.body) {
-    throw new Error(`Crumb fetch failed: ${crumbRes.status}`);
+    throw new Error(`Crumb fetch failed: status=${crumbRes.status} body=${crumbRes.body?.slice(0, 100)}`);
   }
 
   yfCrumb = crumbRes.body;
   yfCookie = cookieStr;
   yfCrumbExpiry = Date.now() + 1000 * 60 * 30; // cache 30 min
-  log("STOCK", "Yahoo crumb refreshed");
+  log("STOCK", "Yahoo crumb refreshed", { crumb: yfCrumb.slice(0, 6) + "..." });
   return { crumb: yfCrumb, cookie: yfCookie };
 }
 
@@ -509,7 +518,7 @@ app.get("/api/stock", async (req, res) => {
 
     return res.json({ ticker, private: false, data });
   } catch (err) {
-    log("STOCK", "Failed to fetch stock data", { ticker, error: err.message });
+    log("STOCK", "Failed to fetch stock data", { ticker, error: err.message || String(err), stack: err.stack?.split("\n")[1]?.trim() });
     res.status(502).json({ error: "Failed to fetch stock data" });
   }
 });
