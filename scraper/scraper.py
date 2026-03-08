@@ -39,7 +39,7 @@ USER_AGENTS = [
 
 AI_BRANDS = {
     "anthropic": {"subreddits": ["ClaudeAI", "MachineLearning", "artificial", "LocalLLaMA"], "ticker": None},
-    "google":    {"subreddits": ["Gemini", "google", "MachineLearning", "LocalLLaMA"], "ticker": "GOOGL"},
+    "google":    {"subreddits": ["GoogleGeminiAI", "google", "MachineLearning", "LocalLLaMA"], "ticker": "GOOGL"},
     "xai":       {"subreddits": ["grok", "xAI", "MachineLearning", "artificial"], "ticker": None},
     "deepseek":  {"subreddits": ["deepseek", "MachineLearning", "LocalLLaMA", "artificial"], "ticker": None},
     "microsoft": {"subreddits": ["Copilot", "microsoft", "MachineLearning", "LocalLLaMA"], "ticker": "MSFT"},

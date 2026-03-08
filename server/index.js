@@ -281,8 +281,11 @@ app.get("/api/posts", async (req, res) => {
   const db = getDb();
   if (!db) return res.status(503).json({ error: "MongoDB not connected" });
   const brand = req.query.brand;
+  const filter = { type: "post" };
+  // r/Gemini is a crypto exchange subreddit, not Google's Gemini AI — exclude it
+  if (brand === "google") filter.subreddit = { $nin: ["Gemini"] };
   const posts = await db.collection(brand)
-                        .find({ type: "post" })
+                        .find(filter)
                         .sort({ created_utc: 1 })
                         .toArray();
   res.json(posts);
