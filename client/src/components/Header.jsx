@@ -25,7 +25,7 @@ export default function Header({ user, brands, selected, onSelect }) {
             <>
               <span className="text-sm text-slate-400">{user.username}</span>
               <a
-                href="http://localhost:3000/logout"
+                href="/logout"
                 className="text-xs text-slate-500 hover:text-primary transition-colors"
               >
                 Logout

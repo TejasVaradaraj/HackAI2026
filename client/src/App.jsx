@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser, useBrands, useSentiment, useDaily, usePosts } from "./hooks/useApi";
 import Header from "./components/Header";
 import SentimentChart from "./components/SentimentChart";
@@ -12,6 +12,12 @@ function App() {
   const { data: sentimentData, loading: chartLoading } = useSentiment(selectedBrand);
   const { data: dailyData, loading: dailyLoading } = useDaily(selectedBrand);
   const { posts, loading: postsLoading } = usePosts(selectedBrand);
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      window.location.href = '/login';
+    }
+  }, [user, authLoading]);
 
   if (authLoading) {
     return (

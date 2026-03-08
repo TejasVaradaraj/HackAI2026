@@ -9,18 +9,22 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
+        headers: { 'x-vite-proxy': '1' },
       },
       '/login': {
         target: 'http://localhost:3000',
         changeOrigin: true,
+        headers: { 'x-vite-proxy': '1' },
       },
       '/signup': {
         target: 'http://localhost:3000',
         changeOrigin: true,
+        headers: { 'x-vite-proxy': '1' },
       },
       '/logout': {
         target: 'http://localhost:3000',
         changeOrigin: true,
+        headers: { 'x-vite-proxy': '1' },
       },
     },
   },

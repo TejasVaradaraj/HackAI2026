@@ -1,0 +1,45 @@
+FINDING: Zero Churn/Advocacy Rates for Select Brands
+=====================================================
+
+Brands affected: Alibaba, DeepSeek, Google, Microsoft
+
+OBSERVATION
+-----------
+The churn rate and advocacy rate metrics display as 0.0% for the above brands
+while showing non-zero values for OpenAI and Anthropic.
+
+ROOT CAUSE
+----------
+This is a dataset issue, not a frontend bug. The churn and advocacy signals are
+detected via keyword matching against Reddit post text. The keyword lists were
+designed around consumer-facing AI products:
+
+  Churn keywords:    "switching to", "cancelled", "unsubscribed", "leaving", etc.
+  Advocacy keywords: "recommend", "best ai", "love this", "amazing", "game changer", etc.
+
+Reddit discussions about OpenAI and Anthropic are driven heavily by paying
+consumers who use these phrases naturally when venting or praising. Reddit
+discussions about Alibaba (Qwen), DeepSeek, Google (Gemini), and Microsoft
+(Copilot) tend to be more news-oriented, technical, or research-focused. These
+posts rarely contain the exact consumer-style phrases the pipeline looks for,
+resulting in genuinely zero signals in the aggregated data.
+
+IMPLICATION FOR PROJECTIONS
+----------------------------
+Because churn rate and advocacy rate are two of the six features fed into the
+LSTM, brands with zero signals in both fields are effectively missing two input
+dimensions. The LSTM still produces projections but relies more heavily on
+weighted sentiment score, post volume, emotion intensity, and comment alignment
+for those brands. Projections for Alibaba, DeepSeek, Google, and Microsoft may
+therefore be less sensitive to loyalty-related shifts than projections for
+OpenAI and Anthropic.
+
+OPTIONS TO ADDRESS
+------------------
+1. Accept as real data. The absence of consumer churn/advocacy language is itself
+   a meaningful signal about how each brand is discussed online.
+
+2. Expand the keyword lists to include more technical and enterprise language
+   (e.g. advocacy: "impressive", "underrated", "solid"; churn: "overrated",
+   "not worth it", "going back"). This would require re-running the features
+   and aggregate pipeline stages against MongoDB.

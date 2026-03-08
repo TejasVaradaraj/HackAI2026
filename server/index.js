@@ -35,6 +35,14 @@ app.use(
   })
 );
 
+// Block direct browser access — redirect to Vite (5173)
+app.use((req, res, next) => {
+  if (req.method === 'GET' && !req.headers['x-vite-proxy'] && !req.path.startsWith('/api')) {
+    return res.redirect('http://localhost:5173' + req.url);
+  }
+  next();
+});
+
 // Request logger middleware
 app.use((req, res, next) => {
   log("REQ", `${req.method} ${req.url}`, {
@@ -164,9 +172,7 @@ app.post("/login", (req, res) => {
   // Hash matches → create session and redirect to React app
   req.session.user = { id: row.id, username: row.username, email: row.email };
   log("AUTH", "Login successful, session created", { id: row.id, username: row.username });
-  // Redirect back to the referring origin (works through Vite proxy or directly)
-  const origin = req.headers.referer ? new URL(req.headers.referer).origin : "http://localhost:5173";
-  return res.redirect(origin);
+  return res.redirect('/');
 });
 
 // POST /signup – create new user
@@ -217,8 +223,7 @@ app.post("/signup", (req, res) => {
     email: newUser.email,
   };
   log("AUTH", "Signup successful, session created", { id: newUser.id, username: newUser.username });
-  const origin = req.headers.referer ? new URL(req.headers.referer).origin : "http://localhost:5173";
-  return res.redirect(origin);
+  return res.redirect('/');
 });
 
 // ── Logout ─────────────────────────────────────────────────
@@ -235,7 +240,7 @@ app.get("/logout", (req, res) => {
 // Dashboard — redirect to React app
 app.get("/dashboard", requireAuth, (req, res) => {
   log("AUTH", "Dashboard access granted, redirecting to React app", { user: req.session.user.username });
-  return res.redirect("http://localhost:5173");
+  return res.redirect('/');
 });
 
 // ── Session check (for React SPA) ────────────────────────
@@ -387,7 +392,7 @@ app.get("/api/network", async (req, res) => {
 app.get("/{*path}", (req, res) => {
   if (req.session && req.session.user) {
     log("ROUTE", "Catchall: authenticated user, redirecting to React app");
-    return res.redirect("http://localhost:5173");
+    return res.redirect('/');
   }
   log("ROUTE", "Catchall: unauthenticated, redirecting to landing");
   return res.redirect("/");
