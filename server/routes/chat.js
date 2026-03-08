@@ -50,16 +50,29 @@ async function gatherContext(db, brand, message) {
   ctx.anomalies = anomalies;
   ctx.alerts = alerts;
 
-  // Fetch correlations if stock-related
-  if (msgLower.match(/stock|correlat|price|ticker|market|nvidia|amd|invest/)) {
-    ctx.correlations = await db.collection("correlations")
-      .find({ brand })
-      .toArray();
-  }
+  // Always fetch correlations — needed for stock impact analysis
+  ctx.correlations = await db.collection("correlations")
+    .find({ brand })
+    .toArray();
 
-  // Fetch comparison brand data if another brand is mentioned
+  // Fetch comparison brand data if another brand is mentioned or comparison requested
+  const wantsComparison = msgLower.match(/compar|versus|vs\.?|against|other|cross-brand|all brands|every brand|who is/);
   const otherBrand = BRANDS.find(b => b !== brand && msgLower.includes(b));
-  if (otherBrand) {
+  if (wantsComparison && !otherBrand) {
+    // Fetch summary data for all other brands
+    const otherBrands = BRANDS.filter(b => b !== brand);
+    const allComparisons = await Promise.all(
+      otherBrands.map(async (b) => {
+        const [sg, ds, sm] = await Promise.all([
+          db.collection("sentiment_graph").find({ brand: b }).sort({ date: -1 }).limit(3).toArray(),
+          db.collection("daily_sentiment").find({ brand: b }).sort({ date: -1 }).limit(3).toArray(),
+          db.collection("sms_scores").find({ brand: b }).sort({ date: -1 }).limit(1).toArray(),
+        ]);
+        return { brand: b, css: sg.reverse(), daily: ds.reverse(), sms: sm[0] || null };
+      })
+    );
+    ctx.allBrands = allComparisons;
+  } else if (otherBrand) {
     const [compSentiment, compDaily, compSms] = await Promise.all([
       db.collection("sentiment_graph")
         .find({ brand: otherBrand })
@@ -120,8 +133,21 @@ ${ctx.anomalies.length ? JSON.stringify(ctx.anomalies.map(a => ({ date: a.date, 
 ### Active Alerts
 ${ctx.alerts.length ? JSON.stringify(ctx.alerts.map(a => ({ date: a.date, type: a.type, sms: a.sms, message: a.message })), null, 1) : "No active alerts."}`;
 
-  if (ctx.correlations) {
-    prompt += `\n\n### Stock Correlations\n${JSON.stringify(ctx.correlations.map(c => ({ stock: c.stock, lag: c.lag_days, correlation: c.correlation, samples: c.n_samples })), null, 1)}`;
+  if (ctx.correlations?.length) {
+    prompt += `\n\n### Stock Correlations
+${JSON.stringify(ctx.correlations.map(c => ({ stock: c.stock, lag: c.lag_days, correlation: c.correlation, samples: c.n_samples })), null, 1)}`;
+  }
+
+  if (ctx.allBrands) {
+    prompt += `\n\n## Cross-Brand Comparison Data`;
+    for (const b of ctx.allBrands) {
+      const latestCss = b.css[b.css.length - 1];
+      const latestDaily = b.daily[b.daily.length - 1];
+      prompt += `\n### ${b.brand}
+- Latest CSS: ${latestCss?.css ?? "N/A"} (${latestCss?.date ?? "?"})
+- Latest Score: ${latestDaily?.weighted_score ?? "N/A"}, Churn: ${latestDaily?.churn_rate ?? "N/A"}, Advocacy: ${latestDaily?.advocacy_rate ?? "N/A"}
+- SMS: ${b.sms?.sms ?? "N/A"}, Velocity: ${b.sms?.velocity ?? "N/A"}`;
+    }
   }
 
   if (ctx.comparison) {
@@ -135,11 +161,25 @@ ${JSON.stringify(c.dailySentiment.map(d => ({ date: d.date, score: d.weighted_sc
 ${c.sms ? JSON.stringify({ sms: c.sms.sms, velocity: c.sms.velocity }) : "No SMS data."}`;
   }
 
-  prompt += `\n\n## Instructions
-- Reference specific numbers and dates from the data above.
-- Be concise: 2-4 paragraphs unless the user asks for detail.
-- Use markdown formatting (bold key numbers, bullet points for lists).
-- Provide actionable insights — what the data suggests, not just what it shows.
+  prompt += `\n\n## Interdependency Network
+AI companies depend on hardware suppliers. Sentiment shifts for an AI company can propagate to these stocks:
+- OpenAI → NVIDIA (NVDA), Microsoft (MSFT)
+- Anthropic → NVIDIA (NVDA), AMD, Amazon (AMZN)
+- Google → NVIDIA (NVDA), AMD, Broadcom (AVGO), Samsung, TSMC (TSM)
+- xAI → NVIDIA (NVDA)
+- DeepSeek → NVIDIA (NVDA), AMD
+- Microsoft → NVIDIA (NVDA), AMD, Intel (INTC)
+- Alibaba → NVIDIA (NVDA), TSMC (TSM)
+
+## Instructions
+- Reference specific numbers, dates, and scores from the data above.
+- Be concise: 2-4 paragraphs max unless asked for detail.
+- Use markdown formatting (**bold** key numbers, bullet points for lists).
+- Provide actionable insights — what the data suggests for investment decisions, not just what it shows.
+- When discussing alerts or anomalies, always trace the impact through the interdependency network to specific hardware stocks.
+- When discussing correlations, explain which lag window shows the strongest signal and what that means for timing.
+- When discussing LSTM forecasts (projected CSS entries), note the predicted direction and whether it suggests strengthening or weakening sentiment.
+- When comparing brands, rank them by the requested metric and highlight the biggest movers.
 - Explain metrics in plain language when first mentioning them.`;
 
   return prompt;

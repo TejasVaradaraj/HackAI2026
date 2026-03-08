@@ -78,11 +78,14 @@ export default function ChatWidget({ brand }) {
     sendMessage(text);
   }
 
+  const brandName = BRAND_NAMES[brand] || brand;
   const suggestions = [
-    `Summarize ${BRAND_NAMES[brand] || brand}'s sentiment`,
-    "Any recent anomalies?",
-    "Stock correlation insights",
-    "Compare with competitors",
+    { icon: "trending_down", text: `Are there any active stock impact alerts for ${brandName}?`, label: "Stock Impact Alerts" },
+    { icon: "query_stats", text: `Analyze ${brandName}'s sentiment momentum — is the trend accelerating or decaying? What does the LSTM forecast predict for the next 14 days?`, label: "Momentum & Forecast" },
+    { icon: "bubble_chart", text: `Which hardware stocks (NVIDIA, AMD, etc.) are most correlated with ${brandName}'s sentiment? At what lag do sentiment shifts predict price moves?`, label: "Sentiment → Stock Correlation" },
+    { icon: "emergency", text: `Identify any sentiment anomalies for ${brandName}. What drove them and which dependent stocks could be impacted?`, label: "Anomaly Detection" },
+    { icon: "compare_arrows", text: `Compare ${brandName}'s sentiment metrics (CSS, churn rate, advocacy) against the other AI companies. Who is trending up vs down?`, label: "Cross-Brand Comparison" },
+    { icon: "assignment", text: `Give me a full executive briefing on ${brandName}: current sentiment state, momentum direction, key risks from churn/trust signals, and any actionable stock alerts.`, label: "Executive Briefing" },
   ];
 
   return (
@@ -154,22 +157,29 @@ export default function ChatWidget({ brand }) {
           {/* Messages */}
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
             {messages.length === 0 && !loading && (
-              <div className="h-full flex flex-col items-center justify-center text-center px-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <span className="material-symbols-outlined text-primary text-2xl">insights</span>
+              <div className="h-full flex flex-col px-1 pt-1 overflow-y-auto">
+                <div className="text-center mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-2.5 mx-auto">
+                    <span className="material-symbols-outlined text-primary text-xl">insights</span>
+                  </div>
+                  <p className="text-sm text-slate-300 font-medium">What would you like to know?</p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Analyzing {brandName}'s sentiment, stock correlations, and market signals.
+                  </p>
                 </div>
-                <p className="text-sm text-slate-300 font-medium mb-1">Ask me anything</p>
-                <p className="text-xs text-slate-500 mb-5">
-                  I analyze sentiment data, anomalies, stock correlations, and more for {BRAND_NAMES[brand] || brand}.
-                </p>
-                <div className="flex flex-wrap justify-center gap-2">
+                <div className="flex flex-col gap-1.5">
                   {suggestions.map((s) => (
                     <button
-                      key={s}
-                      onClick={() => { setInput(""); sendMessage(s); }}
-                      className="px-3 py-1.5 rounded-lg border border-primary/15 bg-primary/5 text-xs text-slate-300 hover:bg-primary/10 hover:text-primary hover:border-primary/25 transition-all duration-150 cursor-pointer"
+                      key={s.label}
+                      onClick={() => { setInput(""); sendMessage(s.text); }}
+                      className="group flex items-center gap-3 px-3 py-2.5 rounded-xl border border-primary/10 bg-primary/[0.03] text-left hover:bg-primary/10 hover:border-primary/20 transition-all duration-150 cursor-pointer"
                     >
-                      {s}
+                      <span className="material-symbols-outlined text-[18px] text-primary/50 group-hover:text-primary transition-colors shrink-0">
+                        {s.icon}
+                      </span>
+                      <span className="text-xs text-slate-400 group-hover:text-slate-200 transition-colors leading-snug">
+                        {s.label}
+                      </span>
                     </button>
                   ))}
                 </div>
