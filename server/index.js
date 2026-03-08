@@ -39,6 +39,9 @@ app.use(
   })
 );
 
+// Serve static assets from views (landing page images, etc.)
+app.use("/static", express.static(path.join(__dirname, "views")));
+
 // Block direct browser access — redirect to Vite (5173) in dev only
 if (!isProd) {
   app.use((req, res, next) => {
