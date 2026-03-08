@@ -39,10 +39,7 @@ OPTIONS TO ADDRESS
 1. Accept as real data. The absence of consumer churn/advocacy language is itself
    a meaningful signal about how each brand is discussed online.
 
-2. Expand the keyword lists to include more technical and enterprise language
-   (e.g. advocacy: "impressive", "underrated", "solid"; churn: "overrated",
-   "not worth it", "going back"). This would require re-running the features
-   and aggregate pipeline stages against MongoDB.
+
 
 
 FINDING: Negative Sentiment Skew Due to Platform Selection Bias
@@ -69,12 +66,8 @@ interpreting results:
      positive experiences are less likely to take the extra effort to post about
      them, whereas frustrated users are actively incentivized to vent.
 
-  2. NEGATIVITY AMPLIFICATION: Reddit's upvote/downvote system and comment
-     threading tend to surface contentious and critical threads over neutral or
-     positive ones. Complaint posts generate more engagement (comments, upvotes)
-     and therefore more visibility in the dataset.
 
-  3. ABSENCE OF TWITTER/X DATA: Twitter/X has a significantly lower barrier to
+  2. ABSENCE OF TWITTER/X DATA: Twitter/X has a significantly lower barrier to
      posting - a quick tweet requires minimal effort compared to a Reddit post.
      This lower friction captures a wider spectrum of casual, positive, and
      reactionary sentiment that our pipeline does not have access to. We were
