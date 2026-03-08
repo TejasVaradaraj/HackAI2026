@@ -59,12 +59,6 @@
                         class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white uppercase">Sentience</span>
                 </div>
                 <nav class="hidden md:flex items-center gap-10">
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors"
-                        href="#">Infrastructure</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors"
-                        href="#">Ecosystem</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors"
-                        href="#">Docs</a>
                 </nav>
                 <div class="flex items-center gap-4">
                     <a class="text-sm font-semibold px-4 py-2 hover:text-primary transition-colors" href="/login">Login</a>
@@ -102,10 +96,10 @@
                                 class="bg-primary text-background-dark px-8 py-4 rounded-xl text-base font-bold hover:scale-105 transition-transform shadow-xl shadow-primary/25 no-underline">
                                 Sign Up
                             </a>
-                            <button
-                                class="bg-slate-200 dark:bg-primary/5 text-slate-900 dark:text-white border border-slate-300 dark:border-primary/20 px-8 py-4 rounded-xl text-base font-bold hover:bg-slate-300 dark:hover:bg-primary/10 transition-all">
+                            <a href="https://github.com/TejasVaradaraj/HackAI2026" target="_blank" rel="noopener noreferrer"
+                                class="bg-slate-200 dark:bg-primary/5 text-slate-900 dark:text-white border border-slate-300 dark:border-primary/20 px-8 py-4 rounded-xl text-base font-bold hover:bg-slate-300 dark:hover:bg-primary/10 transition-all no-underline text-center">
                                 View Documentation
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="relative">
@@ -214,48 +208,26 @@
             </section>
         </main>
         <!-- Footer -->
-        <footer class="bg-background-light dark:bg-[#0d181a] py-20 border-t border-slate-200 dark:border-primary/10">
+        <footer class="bg-background-light dark:bg-[#0d181a] py-16 border-t border-slate-200 dark:border-primary/10">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                    <div class="col-span-1 md:col-span-2 space-y-6">
-                        <div class="flex items-center gap-3">
-                            <img src="/static/favicon.svg" alt="Sentience" class="size-8 rounded-lg" />
-                            <span
-                                class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">SENTIENCE</span>
-                        </div>
-                        <p class="text-slate-600 dark:text-slate-400 max-w-sm">
-                            Mapping the compute-intelligence frontier. Our platform provides the data infrastructure
-                            needed to navigate the age of AI.
-                        </p>
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+                    <div class="flex items-center gap-3">
+                        <img src="/static/favicon.svg" alt="Sentience" class="size-8 rounded-lg" />
+                        <span class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">SENTIENCE</span>
                     </div>
-                    <div class="space-y-4">
-                        <h4 class="font-bold text-slate-900 dark:text-white">Product</h4>
-                        <ul class="space-y-2 text-slate-600 dark:text-slate-400 text-sm">
-                            <li><a class="hover:text-primary transition-colors" href="#">Infrastructure</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Ecosystem Map</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Sentiment API</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Custom Reports</a></li>
-                        </ul>
-                    </div>
-                    <div class="space-y-4">
-                        <h4 class="font-bold text-slate-900 dark:text-white">Company</h4>
-                        <ul class="space-y-2 text-slate-600 dark:text-slate-400 text-sm">
-                            <li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Docs</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
-                        </ul>
-                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm max-w-md text-center md:text-left">
+                        AI sentiment tracking system mapping public perception across the AI ecosystem and its hardware supply chain.
+                    </p>
+                    <a href="https://github.com/TejasVaradaraj/HackAI2026" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors no-underline">
+                        <span class="material-symbols-outlined text-lg">code</span>
+                        GitHub
+                    </a>
                 </div>
                 <div
-                    class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-200 dark:border-primary/10 gap-4 text-sm text-slate-500">
-                    <p>© 2024 Sentience Intelligence. All rights reserved.</p>
-                    <div class="flex gap-6">
-                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">share</span></a>
-                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">hub</span></a>
-                        <a class="hover:text-primary" href="#"><span
-                                class="material-symbols-outlined">data_object</span></a>
-                    </div>
+                    class="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-slate-200 dark:border-primary/10 gap-4 text-sm text-slate-500">
+                    <p>&copy; 2026 Sentience. Built for HackAI 2026.</p>
+                    <p class="text-xs text-slate-600">Powered by FinBERT &middot; LSTM &middot; Featherless AI</p>
                 </div>
             </div>
         </footer>
