@@ -433,19 +433,29 @@ let yfCrumb = null;
 let yfCookie = null;
 let yfCrumbExpiry = 0;
 
-function httpsGet(url, extraHeaders = {}) {
+function httpsGet(url, extraHeaders = {}, retries = 2) {
   return new Promise((resolve, reject) => {
     const headers = { "User-Agent": YF_UA, ...extraHeaders };
-    https.get(url, { headers }, (response) => {
+    const opts = { headers, family: 4, timeout: 10000 };
+    const req = https.get(url, opts, (response) => {
       if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
         const cookies = response.headers["set-cookie"];
         if (cookies) extraHeaders["Cookie"] = cookies.map((c) => c.split(";")[0]).join("; ");
-        return httpsGet(response.headers.location, extraHeaders).then(resolve, reject);
+        return httpsGet(response.headers.location, extraHeaders, retries).then(resolve, reject);
       }
       let body = "";
       response.on("data", (chunk) => { body += chunk; });
       response.on("end", () => resolve({ status: response.statusCode, headers: response.headers, body }));
-    }).on("error", reject);
+    });
+    req.on("error", (err) => {
+      if (retries > 0) {
+        log("STOCK", `Connection failed, retrying (${retries} left)...`, { url: url.split("?")[0], error: err.message });
+        setTimeout(() => httpsGet(url, extraHeaders, retries - 1).then(resolve, reject), 1000);
+      } else {
+        reject(err);
+      }
+    });
+    req.on("timeout", () => { req.destroy(); });
   });
 }
 
