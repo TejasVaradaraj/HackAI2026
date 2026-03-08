@@ -6,11 +6,7 @@ export default function Header({ user, brands, selected, onSelect }) {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
         {/* Logo */}
         <div className="flex items-center gap-3 shrink-0">
-          <div className="text-primary">
-            <svg className="w-7 h-7" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor" />
-            </svg>
-          </div>
+          <img src="/favicon.svg" alt="Sentience" className="w-8 h-8 rounded-lg" />
           <h1 className="text-lg font-bold tracking-tight">Sentience</h1>
         </div>
 

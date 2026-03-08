@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="10" fill="#152a2e"/>
+  <!-- Trend line -->
+  <polyline points="8,34 16,28 22,32 30,18 38,14" fill="none" stroke="#25d1f4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Sparkle top-right -->
+  <path d="M36,10 L36,7 M36,10 L36,13 M36,10 L33,10 M36,10 L39,10" stroke="#25d1f4" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Sparkle small -->
+  <path d="M28,12 L28,10.5 M28,12 L28,13.5 M28,12 L26.5,12 M28,12 L29.5,12" stroke="#25d1f4" stroke-width="1" stroke-linecap="round"/>
+  <!-- Sparkle mid -->
+  <path d="M18,20 L18,18 M18,20 L18,22 M18,20 L16,20 M18,20 L20,20" stroke="#25d1f4" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Dot accents on the line -->
+  <circle cx="16" cy="28" r="2" fill="#25d1f4"/>
+  <circle cx="30" cy="18" r="2" fill="#25d1f4"/>
+  <circle cx="38" cy="14" r="2" fill="#25d1f4"/>
+</svg>
