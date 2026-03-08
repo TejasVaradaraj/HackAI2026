@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d1f4",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .dot-grid {
+            background-image: radial-gradient(circle at 1px 1px, rgba(37, 209, 244, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(37, 209, 244, 0.1) 0%, transparent 70%);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary selection:text-background-dark overflow-x-hidden">
+    <div class="relative min-h-screen flex flex-col dot-grid">
+        <!-- Header -->
+        <header
+            class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-primary/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="size-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined text-3xl">insights</span>
+                    </div>
+                    <span
+                        class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white uppercase">Sentience</span>
+                </div>
+                <nav class="hidden md:flex items-center gap-10">
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors"
+                        href="#">Infrastructure</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors"
+                        href="#">Ecosystem</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors"
+                        href="#">Docs</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a class="text-sm font-semibold px-4 py-2 hover:text-primary transition-colors" href="#">Login</a>
+                    <button
+                        class="bg-primary text-background-dark px-6 py-2.5 rounded-lg text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-primary/20">
+                        Launch Dashboard
+                    </button>
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow">
+            <!-- Hero Section -->
+            <section class="relative pt-20 pb-32 overflow-hidden hero-gradient">
+                <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="relative z-10 space-y-8">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-widest uppercase">
+                            <span class="relative flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                            </span>
+                            Live Intelligence System
+                        </div>
+                        <h1
+                            class="text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-slate-900 dark:text-white">
+                            Map the entire <span class="text-primary">AI ecosystem</span> from silicon to software.
+                        </h1>
+                        <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+                            Sentience is a live, intelligent dashboard tracking real-time market sentiment and market
+                            coupling across hardware suppliers and model builders.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-4">
+                            <button
+                                class="bg-primary text-background-dark px-8 py-4 rounded-xl text-base font-bold hover:scale-105 transition-transform shadow-xl shadow-primary/25">
+                                Launch Dashboard
+                            </button>
+                            <button
+                                class="bg-slate-200 dark:bg-primary/5 text-slate-900 dark:text-white border border-slate-300 dark:border-primary/20 px-8 py-4 rounded-xl text-base font-bold hover:bg-slate-300 dark:hover:bg-primary/10 transition-all">
+                                View Documentation
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-primary/50 to-blue-500/50 rounded-2xl blur-2xl opacity-20">
+                        </div>
+                        <div
+                            class="relative bg-slate-100 dark:bg-[#152a2e] border border-slate-300 dark:border-primary/20 rounded-2xl overflow-hidden shadow-2xl">
+                            <img alt="Sentience Dashboard Interface"
+                                class="w-full aspect-video object-cover opacity-90 dark:opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
+                                data-alt="Modern data visualization dashboard showing complex neural networks and market charts"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO4BJ9sgJbIShNpp-fWeq9QAsAPpRdDkEnwhkgLuyLZDXDIQkgEBqiltTRHyRHYL3gHXYLtx3KPW81dE9nQ1pYmrLxD4YNIqZdKWmBMMpZVVuuPkW5Z_fp8R2gik2WIvOiQzyL8PU4lTqWSJ_bIBKcT5YLhZTtCQ3FNvOTgXtMrd0EQHpwoh7y3LMxlmPemsud1v3kpllx6R9_cpXmFJGAUGlaq18qpkOi191d-iUzAsRO92KaRp74m_Fb7VKSwPUywSDf5Y3b4Bc" />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Features Section -->
+            <section class="py-32 relative bg-slate-50 dark:bg-background-dark/50">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="mb-20 text-center max-w-3xl mx-auto">
+                        <h2 class="text-3xl md:text-5xl font-bold mb-6">Unprecedented Market Clarity</h2>
+                        <p class="text-slate-600 dark:text-slate-400 text-lg">Harness the power of structural mapping to
+                            identify bottlenecks and opportunities before the market reacts.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Card 1 -->
+                        <div
+                            class="group p-8 rounded-2xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+                            <div
+                                class="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-3xl">analytics</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Real-Time Sentiment</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Tracks aggregate scoring across hardware ecosystems and AI models using live data feeds,
+                                social signals, and enterprise demand indicators.
+                            </p>
+                        </div>
+                        <!-- Card 2 -->
+                        <div
+                            class="group p-8 rounded-2xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+                            <div
+                                class="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-3xl">hub</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Structural
+                                Interdependencies</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Visualize the complex network connecting silicon providers like NVIDIA to model builders
+                                like OpenAI. Understand the hardware limitations of software growth.
+                            </p>
+                        </div>
+                        <!-- Card 3 -->
+                        <div
+                            class="group p-8 rounded-2xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+                            <div
+                                class="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-3xl">trending_up</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Predictive Forecasts</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                AI-driven trajectories mapping the future of the artificial intelligence market,
+                                analyzing compute availability versus training requirements.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Social Proof / Logos -->
+            <section class="py-20 border-y border-slate-200 dark:border-primary/10 overflow-hidden">
+                <div class="max-w-7xl mx-auto px-6">
+                    <p class="text-center text-sm font-bold text-slate-400 uppercase tracking-widest mb-12">Trusted by
+                        infrastructure leads at</p>
+                    <div
+                        class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all">
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">COREWEAVE</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">LAMBDA</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">ANTHROPIC</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">HUGGINGFACE</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">NVIDIA</div>
+                    </div>
+                </div>
+            </section>
+            <!-- CTA Section -->
+            <section class="py-32 relative overflow-hidden">
+                <div class="absolute inset-0 bg-primary/5"></div>
+                <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+                    <h2 class="text-4xl md:text-6xl font-black mb-8">Ready to explore the ecosystem?</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">
+                        Join the leading firms using Sentience to map the AI landscape. Get access to high-fidelity
+                        intelligence today.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button
+                            class="bg-primary text-background-dark px-10 py-5 rounded-xl text-lg font-bold hover:scale-105 transition-transform shadow-2xl shadow-primary/30">
+                            Launch Dashboard
+                        </button>
+                        <button
+                            class="bg-slate-200 dark:bg-white/5 text-slate-900 dark:text-white border border-slate-300 dark:border-white/10 px-10 py-5 rounded-xl text-lg font-bold hover:bg-slate-300 dark:hover:bg-white/10 transition-all">
+                            Talk to an Analyst
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer class="bg-background-light dark:bg-[#0d181a] py-20 border-t border-slate-200 dark:border-primary/10">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                    <div class="col-span-1 md:col-span-2 space-y-6">
+                        <div class="flex items-center gap-3">
+                            <div class="size-8 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                <span class="material-symbols-outlined text-2xl">insights</span>
+                            </div>
+                            <span
+                                class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">SENTIENCE</span>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 max-w-sm">
+                            Mapping the compute-intelligence frontier. Our platform provides the data infrastructure
+                            needed to navigate the age of AI.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-slate-900 dark:text-white">Product</h4>
+                        <ul class="space-y-2 text-slate-600 dark:text-slate-400 text-sm">
+                            <li><a class="hover:text-primary transition-colors" href="#">Infrastructure</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Ecosystem Map</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Sentiment API</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Custom Reports</a></li>
+                        </ul>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-slate-900 dark:text-white">Company</h4>
+                        <ul class="space-y-2 text-slate-600 dark:text-slate-400 text-sm">
+                            <li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Docs</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-200 dark:border-primary/10 gap-4 text-sm text-slate-500">
+                    <p>© 2024 Sentience Intelligence. All rights reserved.</p>
+                    <div class="flex gap-6">
+                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">share</span></a>
+                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">hub</span></a>
+                        <a class="hover:text-primary" href="#"><span
+                                class="material-symbols-outlined">data_object</span></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
