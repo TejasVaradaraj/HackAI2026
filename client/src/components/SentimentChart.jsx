@@ -90,10 +90,15 @@ export default function SentimentChart({ data, brand, loading }) {
         </div>
         <div className="flex items-center gap-4 text-xs text-slate-500">
           <span className="flex items-center gap-1.5">
-            <span className="w-3 h-0.5 bg-primary rounded" /> Historical
+            <span className="w-4 h-0.5 rounded" style={{ background: "#25d1f4" }} /> Historical
           </span>
-          <span className="flex items-center gap-1.5">
-            <span className="w-3 h-0.5 bg-primary/50 rounded border-dashed" style={{ borderTop: "2px dashed #25d1f4" }} /> Projected
+          <span className="flex items-center gap-2">
+            <span className="flex items-center gap-[3px]">
+              <span className="w-1.5 h-0.5 rounded-full" style={{ background: "#25d2f48d" }} />
+              <span className="w-1.5 h-0.5 rounded-full" style={{ background: "#25d2f48d" }} />
+
+            </span>
+            Projected
           </span>
         </div>
       </div>
@@ -135,10 +140,9 @@ export default function SentimentChart({ data, brand, loading }) {
           <Area
             type="monotone"
             dataKey="projected"
-            stroke="#25d1f4"
+            stroke="#25d2f48d"
             strokeWidth={2}
             strokeDasharray="6 4"
-            strokeOpacity={0.5}
             fill="none"
             connectNulls={false}
             dot={false}
