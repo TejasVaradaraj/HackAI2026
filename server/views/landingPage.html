@@ -59,6 +59,8 @@
                         class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white uppercase">Sentience</span>
                 </div>
                 <nav class="hidden md:flex items-center gap-10">
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors"
+                        href="https://github.com/TejasVaradaraj/HackAI2026" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </nav>
                 <div class="flex items-center gap-4">
                     <a class="text-sm font-semibold px-4 py-2 hover:text-primary transition-colors" href="/login">Login</a>
@@ -81,15 +83,14 @@
                                     class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
-                            Live Intelligence System
+                            AI Sentiment Intelligence
                         </div>
                         <h1
                             class="text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-slate-900 dark:text-white">
-                            Map the entire <span class="text-primary">AI ecosystem</span> from silicon to software.
+                            Track how the world <span class="text-primary">feels about AI</span> before the market reacts.
                         </h1>
                         <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-                            Sentience is a live, intelligent dashboard tracking real-time market sentiment and market
-                            coupling across hardware suppliers and model builders.
+                            Sentience analyzes Reddit sentiment for 7 major AI companies using FinBERT, predicts trends with LSTM, and traces how public perception ripples through the hardware supply chain to stocks like NVIDIA and AMD.
                         </p>
                         <div class="flex flex-wrap gap-4 pt-4">
                             <a href="/signup"
@@ -122,9 +123,8 @@
             <section class="py-32 relative bg-slate-50 dark:bg-background-dark/50">
                 <div class="max-w-7xl mx-auto px-6">
                     <div class="mb-20 text-center max-w-3xl mx-auto">
-                        <h2 class="text-3xl md:text-5xl font-bold mb-6">Unprecedented Market Clarity</h2>
-                        <p class="text-slate-600 dark:text-slate-400 text-lg">Harness the power of structural mapping to
-                            identify bottlenecks and opportunities before the market reacts.</p>
+                        <h2 class="text-3xl md:text-5xl font-bold mb-6">From Reddit Posts to Stock Signals</h2>
+                        <p class="text-slate-600 dark:text-slate-400 text-lg">A full ML pipeline that ingests public discourse, scores sentiment, detects anomalies, and predicts where sentiment is heading next.</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <!-- Card 1 -->
@@ -134,10 +134,9 @@
                                 class="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                 <span class="material-symbols-outlined text-3xl">analytics</span>
                             </div>
-                            <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Real-Time Sentiment</h3>
+                            <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">FinBERT Sentiment Scoring</h3>
                             <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Tracks aggregate scoring across hardware ecosystems and AI models using live data feeds,
-                                social signals, and enterprise demand indicators.
+                                Every Reddit post is scored using FinBERT (70% post sentiment) and VADER (30% comment sentiment), then aggregated into daily engagement-weighted metrics with churn, advocacy, and trust signals.
                             </p>
                         </div>
                         <!-- Card 2 -->
@@ -145,13 +144,11 @@
                             class="group p-8 rounded-2xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 hover:border-primary/40 transition-all shadow-sm">
                             <div
                                 class="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined text-3xl">hub</span>
+                                <span class="material-symbols-outlined text-3xl">show_chart</span>
                             </div>
-                            <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Structural
-                                Interdependencies</h3>
+                            <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Sentiment-Stock Correlation</h3>
                             <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Visualize the complex network connecting silicon providers like NVIDIA to model builders
-                                like OpenAI. Understand the hardware limitations of software growth.
+                                Computes Pearson correlations between AI company sentiment shifts and hardware stock price movements at 1, 2, 3, 5, and 7-day lags — showing when and how sentiment predicts market moves.
                             </p>
                         </div>
                         <!-- Card 3 -->
@@ -161,48 +158,69 @@
                                 class="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                 <span class="material-symbols-outlined text-3xl">trending_up</span>
                             </div>
-                            <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Predictive Forecasts</h3>
+                            <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">LSTM Forecasts & Alerts</h3>
                             <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                AI-driven trajectories mapping the future of the artificial intelligence market,
-                                analyzing compute availability versus training requirements.
+                                A 2-layer LSTM predicts 14-day sentiment trajectories. Z-score anomaly detection flags unusual sentiment spikes, and the Sentiment Momentum Score fires stock impact alerts automatically.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- Social Proof / Logos -->
+            <!-- Tracked Entities -->
             <section class="py-20 border-y border-slate-200 dark:border-primary/10 overflow-hidden">
                 <div class="max-w-7xl mx-auto px-6">
-                    <p class="text-center text-sm font-bold text-slate-400 uppercase tracking-widest mb-12">Trusted by
-                        infrastructure leads at</p>
+                    <p class="text-center text-sm font-bold text-slate-400 uppercase tracking-widest mb-8">Tracking sentiment across 7 AI companies</p>
                     <div
-                        class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all">
-                        <div class="text-2xl font-black text-slate-900 dark:text-white">COREWEAVE</div>
-                        <div class="text-2xl font-black text-slate-900 dark:text-white">LAMBDA</div>
-                        <div class="text-2xl font-black text-slate-900 dark:text-white">ANTHROPIC</div>
-                        <div class="text-2xl font-black text-slate-900 dark:text-white">HUGGINGFACE</div>
-                        <div class="text-2xl font-black text-slate-900 dark:text-white">NVIDIA</div>
+                        class="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">OpenAI</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">Anthropic</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">Google</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">xAI</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">DeepSeek</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">Microsoft</div>
+                        <div class="text-2xl font-black text-slate-900 dark:text-white">Alibaba</div>
                     </div>
                 </div>
             </section>
-            <!-- CTA Section -->
+            <!-- How It Works -->
             <section class="py-32 relative overflow-hidden">
                 <div class="absolute inset-0 bg-primary/5"></div>
-                <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-                    <h2 class="text-4xl md:text-6xl font-black mb-8">Ready to explore the ecosystem?</h2>
-                    <p class="text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">
-                        Join the leading firms using Sentience to map the AI landscape. Get access to high-fidelity
-                        intelligence today.
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <div class="max-w-5xl mx-auto px-6 relative z-10">
+                    <h2 class="text-3xl md:text-5xl font-black mb-16 text-center">How Sentience Works</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-start">
+                        <div class="text-center space-y-3">
+                            <div class="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
+                                <span class="material-symbols-outlined text-2xl">forum</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">Reddit Data</h4>
+                            <p class="text-xs text-slate-500">Scraped posts &amp; comments from 15+ subreddits covering 7 AI companies</p>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center pt-4">
+                            <span class="material-symbols-outlined text-primary/30 text-2xl">arrow_forward</span>
+                        </div>
+                        <div class="text-center space-y-3">
+                            <div class="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
+                                <span class="material-symbols-outlined text-2xl">psychology</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">FinBERT + LSTM</h4>
+                            <p class="text-xs text-slate-500">Sentiment scoring, feature extraction, anomaly detection, and 14-day forecasts</p>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center pt-4">
+                            <span class="material-symbols-outlined text-primary/30 text-2xl">arrow_forward</span>
+                        </div>
+                        <div class="text-center space-y-3">
+                            <div class="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
+                                <span class="material-symbols-outlined text-2xl">notifications_active</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">Signals & Alerts</h4>
+                            <p class="text-xs text-slate-500">SMS scores trigger stock impact alerts when sentiment shifts correlate with hardware stocks</p>
+                        </div>
+                    </div>
+                    <div class="mt-16 text-center">
                         <a href="/signup"
-                            class="bg-primary text-background-dark px-10 py-5 rounded-xl text-lg font-bold hover:scale-105 transition-transform shadow-2xl shadow-primary/30 no-underline">
-                            Sign Up
+                            class="bg-primary text-background-dark px-10 py-5 rounded-xl text-lg font-bold hover:scale-105 transition-transform shadow-2xl shadow-primary/30 no-underline inline-block">
+                            Get Started
                         </a>
-                        <button
-                            class="bg-slate-200 dark:bg-white/5 text-slate-900 dark:text-white border border-slate-300 dark:border-white/10 px-10 py-5 rounded-xl text-lg font-bold hover:bg-slate-300 dark:hover:bg-white/10 transition-all">
-                            Talk to an Analyst
-                        </button>
                     </div>
                 </div>
             </section>
